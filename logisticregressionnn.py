@@ -1,4 +1,4 @@
-import numpy 
+import numpy as np 
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
@@ -17,4 +17,26 @@ class LogisticRegressionNN:
         self.bias = None
         self.cost_history = []
 
+    def sigmoid(self, z):
+        # sigmoid function with value stability
+        z = np.clip(z,-500,500)
+        return 1/(1+np.exp(-z))
+
+    def initialize_parameters(self, n_features):
+        # initializing the weights and bias
+        self.weights = np.random.randn(n_features) * np.sqrt(1/n_features)
+        self.bias = 0.00
+    
+
+    def forward_propagation(self, X):
+        # forward propagation -> X : input features of m x n 
+        # m samples containing n features
+        # the function will return : 
+        #   Z -> linear combination before activation
+        #   A -> sigmoid(Z) : linear combination after activation
+
+        Z = np.dot(X, self.weights) + self.bias
+        A = self.sigmoid(Z)
+
+        return A, Z
     
