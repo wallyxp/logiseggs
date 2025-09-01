@@ -40,3 +40,16 @@ class LogisticRegressionNN:
 
         return A, Z
     
+    def compute_cost(self, A, y):
+
+        m =y.shape[0]
+
+        epsilon = 1e-15
+        A = np.clip(A, epsilon, 1 - epsilon)
+
+        cost = -(1/m) * np.sum(y * np.log(A) + (1-y) * np.log(1-A))
+
+        return cost
+
+    def backward_propagation(self, X, A, y):
+        pass
